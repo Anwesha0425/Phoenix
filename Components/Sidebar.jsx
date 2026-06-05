@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { IoIosHome } from 'react-icons/io'
-import { BsFillChatRightFill, BsPersonFill } from 'react-icons/bs'
+import { BsFillChatRightFill, BsPersonFill, BsCodeSlash } from 'react-icons/bs'
 import { FaCalendarAlt } from 'react-icons/fa'
 import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import { FiMoreHorizontal } from 'react-icons/fi'
@@ -14,6 +14,7 @@ const navItems = [
   { href: '/chatroom', icon: BsFillChatRightFill, label: 'Chat' },
   { href: '/events', icon: FaCalendarAlt, label: 'Events' },
   { href: '/resources', icon: AiOutlineAppstoreAdd, label: 'Resources' },
+  { href: '/questions', icon: BsCodeSlash, label: 'Questions' },
   { href: '/more', icon: FiMoreHorizontal, label: 'More' },
 ]
 
