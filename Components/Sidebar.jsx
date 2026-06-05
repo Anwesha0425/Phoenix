@@ -1,127 +1,60 @@
-/* This is a React component that renders a sidebar with icons and links to different pages of a web
-application. It uses the useState hook to manage the active state of each icon, and the Link
-component from the Next.js library to handle client-side navigation. It also imports several icons
-from different libraries to use as the icons for each link. Finally, it imports the auth object from
-a Firebase client to check if a user is currently logged in. */
-
-import React, {useState} from 'react'
-import Link from 'next/link';
+/* Sidebar — redesigned with router-aware active detection, tooltips, and improved hover states */
+import React from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { IoIosHome } from 'react-icons/io'
-import { BsFillChatRightFill,BsPersonFill } from 'react-icons/bs'
+import { BsFillChatRightFill, BsPersonFill } from 'react-icons/bs'
 import { FaCalendarAlt } from 'react-icons/fa'
 import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import { FiMoreHorizontal } from 'react-icons/fi'
-import { MdSettings } from 'react-icons/md'
-import { auth } from '@/firebaseclient';
 
-const user=auth.currentUser;
+const navItems = [
+  { href: '/', icon: IoIosHome, label: 'Home' },
+  { href: '/profile', icon: BsPersonFill, label: 'Profile' },
+  { href: '/chatroom', icon: BsFillChatRightFill, label: 'Chat' },
+  { href: '/events', icon: FaCalendarAlt, label: 'Events' },
+  { href: '/resources', icon: AiOutlineAppstoreAdd, label: 'Resources' },
+  { href: '/more', icon: FiMoreHorizontal, label: 'More' },
+]
 
 const Sidebar = () => {
-  let sideicons__styles = "flex justify-center items-center rounded-md flex-col h-[65px] w-[70px] p-[4px] hover:text-dark__blue hover:bg-main sm:p-0 sm:h-auto sm:w-[50px] sm:p-1 ";
-  let icon__size=35;
-  let text__style ="flex justify-center items-center text-center sm:hidden text-xs p-[2px]";
-  const [active1, setActive1] = useState(true);
-  const [active2, setActive2] = useState(false);
-  const [active3, setActive3] = useState(false);
-  const [active4, setActive4] = useState(false);
-  const [active5, setActive5] = useState(false);
-  const [active6, setActive6] = useState(false);
+  const router = useRouter()
 
   return (
-    <div className={`fixed flex flex-col justify-evenly items-center border-r top-0 left-0 bottom-0 pt-[64px] w-[80px] 
-    sm:w-[60px] border-main`}>
-      <Link href="/">
-        <div className={sideicons__styles + `${active1?"text-dark__blue bg-main":""}`} title={"Home"} onClick={()=>{
-          setActive1(true);
-          setActive2(false);
-          setActive3(false);
-          setActive4(false);
-          setActive5(false);
-          setActive6(false);
-        }}>
-          <div>
-            <IoIosHome size={icon__size} />
-          </div>
-          <div className={text__style}>Home</div>
-        </div>
-      </Link>
-      <Link href="/profile">
-        <div className={sideicons__styles + `${active6?"text-dark__blue bg-main":""}`} title={"Settings"} onClick={()=>{
-          setActive1(false);
-          setActive2(false);
-          setActive3(false);
-          setActive4(false);
-          setActive5(false);
-          setActive6(true);
-        }}>
-          <div>
-            <BsPersonFill size={icon__size}/>
-          </div>
-          <div className={text__style}>Profile</div>
-        </div>
-      </Link>
-       <Link href="/chatroom">
-        <div className={sideicons__styles + `${active2?"text-dark__blue bg-main":""}`} title={"Chatroom"} onClick={()=>{
-          setActive1(false);
-          setActive2(true);
-          setActive3(false);
-          setActive4(false);
-          setActive5(false);
-          setActive6(false);
-        }}>
-          <div>
-            <BsFillChatRightFill size={icon__size}/>
-          </div>
-          <div className={text__style}>Chatroom</div>
-        </div>
-      </Link> 
-      
-      <Link href="/events">
-        <div className={sideicons__styles + `${active3?"text-dark__blue bg-main":""}`} title={"events"} onClick={()=>{
-          setActive1(false);
-          setActive2(false);
-          setActive3(true);
-          setActive4(false);
-          setActive5(false);
-          setActive6(false);
-        }}>
-          <div>
-            <FaCalendarAlt size={icon__size}/>
-          </div>
-          <div className={text__style}>Events</div>
-        </div>
-      </Link>
-      <Link href="/resources">
-        <div className={sideicons__styles + `${active4?"text-dark__blue bg-main":""}`} onClick={()=>{
-          setActive1(false);
-          setActive2(false);
-          setActive3(false);
-          setActive4(true);
-          setActive5(false);
-          setActive6(false);
-        }}>
-          <div title={"Resources"}>
-            <AiOutlineAppstoreAdd size={icon__size}/>
-          </div>
-          <div className={text__style}>Resources</div>
-        </div>
-      </Link>
-      <Link href="/more">
-        <div className={sideicons__styles + `${active5?"text-dark__blue bg-main":""}`} title={"More"} onClick={()=>{
-          setActive1(false);
-          setActive2(false);
-          setActive3(false);
-          setActive4(false);
-          setActive5(true);
-          setActive6(false);
-        }}>
-          <div>
-            <FiMoreHorizontal size={icon__size}/>
-          </div>
-          <div className={text__style}>More</div>
-        </div>
-      </Link>
-      
+    <div
+      className="fixed flex flex-col justify-evenly items-center border-r border-main/30 top-0 left-0 bottom-0 pt-[64px] w-[80px] sm:w-[60px] z-[99]"
+      style={{
+        background: 'rgba(11, 0, 93, 0.6)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+      }}
+    >
+      {navItems.map(({ href, icon: Icon, label }) => {
+        const isActive =
+          href === '/' ? router.pathname === '/' : router.pathname.startsWith(href)
+
+        return (
+          <Link href={href} key={href} className="w-full flex justify-center group relative">
+            <div
+              className={
+                'flex flex-col justify-center items-center rounded-lg w-[62px] h-[62px] sm:w-[48px] sm:h-[48px] p-1 transition-all duration-300 ' +
+                (isActive
+                  ? 'sidebar-active'
+                  : 'text-main/60 hover:text-main hover:bg-main/10')
+              }
+              title={label}
+            >
+              <Icon size={28} className="sm:w-[22px] sm:h-[22px]" />
+              <span className="text-[10px] mt-0.5 sm:hidden font-medium">{label}</span>
+            </div>
+
+            {/* Tooltip for mobile */}
+            <span className="hidden sm:block absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-main text-dark__blue text-xs font-bold px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-50">
+              {label}
+            </span>
+          </Link>
+        )
+      })}
     </div>
   )
 }

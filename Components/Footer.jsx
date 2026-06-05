@@ -1,35 +1,114 @@
-/* This is a React component called `Footer` that renders a footer section for a website. It imports
-several icons from the `react-icons` library and a `Link` component from the `next/link` library.
-The component returns a `div` element with several child elements, including links to social media
-profiles, links to other pages on the website, and a copyright notice. */
+/* Footer — fixed broken mobile layout, added gradient border, hover glow on social icons */
 import React from 'react'
 import { SiYoutube } from 'react-icons/si'
-import { BsInstagram } from 'react-icons/bs'
+import { BsInstagram, BsGithub } from 'react-icons/bs'
 import { GrMail } from 'react-icons/gr'
-import Link from 'next/link';
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+
+const socialLinks = [
+  {
+    href: 'mailto:cpunofficial101@gmail.com',
+    icon: GrMail,
+    title: 'Email us',
+    color: '#dbad69',
+  },
+  {
+    href: 'https://www.instagram.com/cp_unofficial.101/',
+    icon: BsInstagram,
+    title: 'Instagram',
+    color: '#e1306c',
+  },
+  {
+    href: 'https://www.youtube.com/@cpunofficial1196/videos',
+    icon: SiYoutube,
+    title: 'YouTube',
+    color: '#ff0000',
+  },
+  {
+    href: 'https://github.com/Anwesha0425/Phoenix',
+    icon: BsGithub,
+    title: 'GitHub',
+    color: '#ffffff',
+  },
+]
 
 const Footer = () => {
-
   return (
-    <div className={"flex justify-center items-center relative left-0 bottom-0 right-0 border-t-2 border-x-2 border-main backdrop-blur-sm w-full"}>
-      <div className={"flex flex-col justify-center items-center"}>
-        <div className={"flex justify-around items-center py-[0.4rem] px-[10rem] text-main w-[45%]"}>
-          <a href="mailto:cpunofficial101@gmail.com" className={"text-4xl mx-3 hover:scale-110  transition-all duration-300 "} target={"blank"} title={"cpunofficial101@gmail.com"}><GrMail /></a>
-          <a href="https://www.instagram.com/cp_unofficial.101/" className={"text-4xl mx-3 hover:scale-110  transition-all duration-300 "} target={"blank"} title={"Instagram"}><BsInstagram /></a>
-          <a href="https://www.youtube.com/@cpunofficial1196/videos" className={"text-4xl mx-3 hover:scale-110  transition-all duration-300 "} target={"blank"} title={"Youtube"}><SiYoutube /></a>
-        </div>
-        <div>
-          <Link href='/about' title={"About Us"}>About Us</Link>&nbsp; &nbsp;
-          <Link href='/contact' title={"Contact Us"}>Contact us</Link>&nbsp; &nbsp;
-          <a href='https://github.com/Anwesha0425/Phoenix' title={"Github"} target={"blank"}>Github</a>
-        </div>
-        <div>
-          <p>© {new Date().getFullYear()} <a href="https://www.linkedin.com/in/anwesharanigouda/" target={"blank"} title={"Anwesha's LinkedIn"}>Anwesha</a> | All rights reserved, India</p>
+    <footer
+      className="relative w-full mt-8"
+      style={{
+        borderTop: '1px solid rgba(219, 173, 105, 0.3)',
+        background: 'rgba(6, 0, 49, 0.6)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+      }}
+    >
+      {/* Gold gradient top line */}
+      <div className="section-divider w-full absolute top-0 left-0" />
+
+      <div className="flex flex-col items-center py-8 px-4 gap-5">
+        {/* Social icons */}
+        <div className="flex items-center gap-6 sm:gap-4">
+          {socialLinks.map(({ href, icon: Icon, title, color }) => (
+            <motion.a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={title}
+              className="flex items-center justify-center w-11 h-11 rounded-full transition-all duration-300"
+              style={{
+                border: '1px solid rgba(219,173,105,0.25)',
+                color: 'rgba(219,173,105,0.8)',
+              }}
+              whileHover={{
+                scale: 1.15,
+                color,
+                borderColor: color,
+                boxShadow: `0 0 14px ${color}55`,
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Icon size={20} />
+            </motion.a>
+          ))}
         </div>
 
+        {/* Nav links */}
+        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/60">
+          <Link href="/about" className="hover:text-main transition-colors duration-200">
+            About Us
+          </Link>
+          <Link href="/contact" className="hover:text-main transition-colors duration-200">
+            Contact
+          </Link>
+          <Link href="/events" className="hover:text-main transition-colors duration-200">
+            Events
+          </Link>
+          <Link href="/resources" className="hover:text-main transition-colors duration-200">
+            Resources
+          </Link>
+          <Link href="/terms_and_conditions" className="hover:text-main transition-colors duration-200">
+            Terms
+          </Link>
+        </nav>
 
+        {/* Copyright */}
+        <p className="text-xs text-white/35 text-center">
+          © {new Date().getFullYear()}{' '}
+          <a
+            href="https://www.linkedin.com/in/anwesharanigouda/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-main/70 hover:text-main transition-colors duration-200"
+          >
+            Anwesha
+          </a>{' '}
+          · CP Unofficial · All rights reserved · India
+        </p>
       </div>
-    </div>
+    </footer>
   )
 }
 
