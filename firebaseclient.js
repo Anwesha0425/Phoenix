@@ -1,34 +1,19 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, where, getDocs  } from 'firebase/firestore';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  // Your Firebase project configuration
-  // You can find this in your Firebase console
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const db = getDatabase(app);
 const auth = getAuth(app);
 
-export async function isUserIdTaken(userId) {
-  const usersRef = collection(db, 'users');
-  const q = query(usersRef, where('userId', '==', userId));
-  const querySnapshot = await getDocs(q);
-  return !querySnapshot.empty;
-}
-export async function isemailIdTaken(email) {
-  const usersRef = collection(db, 'users');
-  const q = query(usersRef, where('email', '==', email));
-  const querySnapshot = await getDocs(q);
-  return !querySnapshot.empty;
-}
-
-
-export { app, db, auth }; 
+export { app, db, auth };

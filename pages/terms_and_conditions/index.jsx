@@ -10,7 +10,7 @@ const Index = () => {
   return (
     <>
       <Head>
-        <title>Rules | CP Unofficial</title>
+        <title>Rules | Phoenix</title>
       </Head>
     <div className='flex justify-around items-around p-2.5 pb-12 backdrop-blur-sm'>
       <div className="w-4/5">

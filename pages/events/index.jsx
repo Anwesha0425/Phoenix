@@ -21,7 +21,7 @@ const Index = () => {
   return (
     <>
       <Head>
-        <title>Events | CP Unofficial</title>
+        <title>Events | Phoenix</title>
       </Head>
     <div className='backdrop-blur-sm'>
       <h1 className='text-4xl p-2 mb-2 mt-1 mx-1 text-center bg-main text-dark__blue border-4 border-[black]'>Upcoming Contests</h1>

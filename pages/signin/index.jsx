@@ -38,15 +38,15 @@ export default function SignIn({ theme }) {
       });
   }
 
-  let style = "text__black w-full p-1.5 my-1.5 bg-transparent border-4 border-dark__blue rounded-md focus:border-main ";
+  let style = `w-full p-1.5 my-1.5 bg-transparent border-4 border-dark__blue rounded-md focus:border-main ${theme ? 'text-white' : 'text-dark__blue'}`;
 
   return (
     <>
     <Head>
-        <title>Sign In | CP Unofficial</title>
+        <title>Sign In | Phoenix</title>
     </Head>
     <div className='w-full p-4 h-screen justify-center items-center flex flex-col backdrop-blur-sm' data-aos="zoom-in"data-aos-duration="3000">
-      <div className='border-4 p-8 flex flex-col items-center justify-center rounded-lg' data-aos="fade-up" data-aos-duration="3000">
+      <div className={`border-4 p-8 flex flex-col items-center justify-center rounded-lg ${theme ? 'bg-[rgba(13,15,28,0.8)] border-dark__blue text-white' : 'bg-white/80 border-[#e0f2fe] text-dark__blue'}`} data-aos="fade-up" data-aos-duration="3000">
         <h1 className='font-bold text-3xl text-center pb-4'>Log In to Your Account</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col justify-center h-full w-full'>
@@ -59,7 +59,7 @@ export default function SignIn({ theme }) {
               setPassword(event.target.value);
               setErrorp('');
             }}/>
-            <div className="absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+            <div className={`absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer transition-colors ${theme ? 'text-white/50 hover:text-white' : 'text-dark__blue/50 hover:text-dark__blue'}`} onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
             </div>
           </div>

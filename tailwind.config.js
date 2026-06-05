@@ -22,7 +22,7 @@ module.exports = {
       'gradient__light__blue': '#13112a',
       'bg_blue_phoenix': '#0d0f1c',
       'light_theme_bg': '#a23ded',
-      'light_theme_ot': '#00479f',
+      'light_theme_ot': '#3b82f6',
       'blue': '#1a56db',
       'white': '#ffffff',
       'black': '#000000',

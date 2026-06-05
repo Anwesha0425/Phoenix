@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { top100Questions } from '../../data/top100';
 
-const Questions = () => {
+const Questions = ({ hideHead = false }) => {
   const [activeTab, setActiveTab] = useState('latest');
   const [activePlatform, setActivePlatform] = useState('codeforces'); // 'codeforces' or 'leetcode'
   const [cfProblems, setCfProblems] = useState([]);
@@ -45,16 +45,18 @@ const Questions = () => {
           });
       }
     }
-  }, [activeTab, activePlatform]);
+  }, [activeTab, activePlatform, cfProblems.length, lcProblems.length]);
 
   const loadMore = () => setVisibleCount(prev => prev + 20);
 
   return (
     <>
-      <Head>
-        <title>Questions | CP Unofficial</title>
-      </Head>
-      <div className="w-full flex flex-col items-center p-6 sm:p-2 min-h-screen">
+      {!hideHead && (
+        <Head>
+          <title>Questions | Phoenix</title>
+        </Head>
+      )}
+      <div className="w-full flex flex-col items-center p-6 sm:p-2 min-h-screen pb-20">
         <h1 className="text-4xl sm:text-3xl font-bold gradient-text mb-8 mt-4 text-center">
           Practice Questions
         </h1>

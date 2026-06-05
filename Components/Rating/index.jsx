@@ -6,10 +6,11 @@ import React,{useState, useEffect} from 'react'
 import { BsBoxArrowUpRight } from "react-icons/bs";
 
 const Index = ({name}) => {
-    name=name.trim();
+    const safeName = name ? name.trim() : "";
     const [data,setdata]= useState([]);
     function fetchData(){
-        fetch(`https://codeforces.com/api/user.rating?handle=${name}`)
+        if (!safeName) return;
+        fetch(`https://codeforces.com/api/user.rating?handle=${safeName}`)
             .then(response => {
                 if(response.status >= 400) {
                 console.log("Server responds with error!");
@@ -18,7 +19,7 @@ const Index = ({name}) => {
             })
             .then((data) => {
             if(data.status== "FAILED"){
-                alert("Fetching failed");
+                console.log(`Failed fetching ratings for ${safeName}`);
             }
             else{
                 setdata(data.result);
@@ -39,6 +40,11 @@ const Index = ({name}) => {
     },[counter]);
     let size = data.length;
     let new_data = data.reverse();
+
+  if (!safeName) {
+    return <div className="text-center p-4 text-white/50 border-2 border-white/10 rounded-lg">No Codeforces ID provided.</div>;
+  }
+
   return (
     <>
       <table className="table-fixed w-full text-center border-separate border-main border-2 rounded-md sm:text-xs" data-aos="fade-up" data-aos-duration="3000">

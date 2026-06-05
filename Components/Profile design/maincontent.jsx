@@ -41,21 +41,24 @@ const Maincontent = ({user,theme}) => {
 }
 ]);
     function fetchData(){
-        fetch(`https://codeforces.com/api/user.info?handles=${user.codeforcesId}`)
-            .then(response => {
-                if(response.status >= 400) {
-                console.log("Server responds with error!");
-            }
-            return response.json()
-            })
-            .then((data) => {
-            if(data.status== "FAILED"){
-                alert("Fetching failed");
-            }
-            else{
-                setdata(data.result);
-            }
-            })
+      if (!user?.codeforcesId) return;
+      
+      fetch(`https://codeforces.com/api/user.info?handles=${user.codeforcesId}`)
+        .then(response => {
+          if(response.status >= 400) {
+            console.log("Server responds with error!");
+          }
+          return response.json()
+        })
+        .then((data) => {
+          if(data.status== "FAILED"){
+            console.log("Fetching failed for Codeforces API");
+          }
+          else{
+            setdata(data.result);
+          }
+        })
+        .catch(err => console.error(err));
     }
     const [counter, setCounter] = useState(0);
     useEffect(() => {
@@ -65,39 +68,52 @@ const Maincontent = ({user,theme}) => {
     },[counter]);
     
     useEffect(() => {
-      if (counter <= 0) {
+      if (counter <= 0 && user?.codeforcesId) {
         fetchData();
         setCounter(15);
       }
-    },[counter]);
+    },[counter, user?.codeforcesId]);
   return (
   <>
-    <div className='border-4 rounded-md m-1 flex justify-between items-center p-10 sm:flex-col-reverse'>
-      <div className="" data-aos="fade-right" data-aos-duration="3000">
-      <p className="text-4xl font-bold sm:text-2xl">{user.name}</p>
-      <p className="text-xl sm:text-lg font-bold">{user.collegename}</p>
-      <p className="text-base"><a href={`mailto:${user.email}`} className='hover:underline'>{user.email}</a></p>
-      <li>{user.city}, India</li>
-      <li>Codeforces ID: <a href={`https://codeforces.com/profile/${user.codeforcesId}`} className='hover:underline'>{user.codeforcesId}</a></li>
-      <li>Leetcode ID: <a href={`https://leetcode.com/${user.leetcodeId}/`} className='hover:underline'>{user.leetcodeId}</a></li>
-      <li>Current CF Rank: {data[0].rating}, {data[0].rank} (max. {data[0].maxRank}, {data[0].maxRating})</li>
-      <li>CF Contributions: {data[0].contribution}</li>
-      <li>Friend of: {data[0].friendOfCount} users</li>
-          <li>Interested In: {user.interestedin} </li>
+    <div className='border-2 border-[rgba(162,61,237,0.3)] bg-[rgba(13,15,28,0.8)] shadow-[0_8px_30px_rgba(0,0,0,0.3)] rounded-2xl m-4 flex justify-between items-center p-10 sm:flex-col-reverse'>
+      <div className="flex flex-col gap-2" data-aos="fade-right" data-aos-duration="3000">
+        <p className="text-4xl font-bold sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-[#a23ded] to-[#00ffcc] mb-2">{user.name}</p>
+        <p className="text-base text-white/80"><a href={`mailto:${user.email}`} className='hover:text-[#00ffcc] transition-colors'>{user.email}</a></p>
+        
+        {user.codeforcesId ? (
+          <li>Codeforces ID: <a href={`https://codeforces.com/profile/${user.codeforcesId}`} className='text-[#00ffcc] hover:underline font-semibold'>{user.codeforcesId}</a></li>
+        ) : (
+          <li className="text-white/50">Codeforces ID: Not Provided</li>
+        )}
+
+        {user.leetcodeId ? (
+          <li>Leetcode ID: <a href={`https://leetcode.com/${user.leetcodeId}/`} className='text-[#00ffcc] hover:underline font-semibold'>{user.leetcodeId}</a></li>
+        ) : (
+          <li className="text-white/50">Leetcode ID: Not Provided</li>
+        )}
+
+        {user.codeforcesId && data[0] && data[0].rating !== 0 && (
+          <div className="mt-4 p-4 bg-white/5 rounded-xl border border-white/10">
+            <h3 className="font-bold text-[#a23ded] mb-2">Codeforces Stats</h3>
+            <li>Current CF Rank: <span className="font-semibold text-white">{data[0].rating}</span>, {data[0].rank} (max. {data[0].maxRank}, {data[0].maxRating})</li>
+            <li>CF Contributions: <span className="font-semibold text-white">{data[0].contribution}</span></li>
+            <li>Friend of: <span className="font-semibold text-white">{data[0].friendOfCount}</span> users</li>
+          </div>
+        )}
       </div>
       <div className='flex flex-col items-center'>
-
-      <Image
-            src={data[0].titlePhoto}
-            alt="Phoenix"
-            className={"w-auto h-[15vw] border-4 border-main rounded-md sm:h-[30vw]"}
-            width={1500}
-            height={1500}
-            data-aos="fade-left" data-aos-duration="3000"
-            layout="filled"
-          />
-          <Link href="/updateprofile" className=' m-2 font-bold border-2 border-main p-2 rounded-md hover:text-dark__blue hover:bg-main flex justify-around items-center' data-aos="fade-left" data-aos-duration="3000">Update Profile</Link>
-          </div>
+        <Image
+          src={data[0]?.titlePhoto || "https://userpic.codeforces.org/no-title.jpg"}
+          alt="Profile Photo"
+          className={"w-32 h-32 object-cover border-4 border-[#a23ded] rounded-full shadow-[0_0_20px_rgba(162,61,237,0.4)] mb-4"}
+          width={150}
+          height={150}
+          data-aos="fade-left" data-aos-duration="3000"
+        />
+        <Link href="/updateprofile" className='font-bold text-dark__blue bg-gradient-to-r from-[#a23ded] to-[#00ffcc] px-6 py-2 rounded-xl transition-all hover:scale-105' data-aos="fade-left" data-aos-duration="3000">
+          Edit Profile
+        </Link>
+      </div>
     </div>
     <div className=''>
         <div className='w-full flex items-center border-y-2' data-aos="fade-up" data-aos-duration="3000">
@@ -122,9 +138,8 @@ const Maincontent = ({user,theme}) => {
             {open2 && <Rating name={user.codeforcesId}/>}
             {open3 && <Leetcode_data name={user.leetcodeId}/>}
         </div>
-        <p className="text-2xl sm:text-lg xl:text-center lg:text-center xl:p-14 lg:p-14 sm:p-4 md:p-36">
-            Our sincerest gratitude to Mr. Mike Mirzaynov, developer of Codeforces and its API keys. Your dedication and hard work in creating such an awesome platform have not gone unnoticed.
-            We would like to personally thank you for the Codeforces API keys, which have been an essential component in our project. Your work has made a significant impact on the programming community, and we greatly appreciate all that you have done. Your dedication to excellence is an inspiration to us all.
+        <p className="text-2xl sm:text-lg xl:text-center lg:text-center xl:p-14 lg:p-14 sm:p-4 md:p-36 italic font-medium">
+            "Success is the sum of small efforts, repeated day in and day out. Keep coding, keep building, and never give up."
         </p>
     </div>
   </>

@@ -132,7 +132,7 @@ export default function ImageCarousel({ theme }) {
             transition={{ delay: 0.4, duration: 0.6 }}
           >
             Welcome to{" "}
-            <span className="gradient-text">CP Unofficial</span>
+            <span className="gradient-text">Phoenix</span>
           </motion.h1>
 
           <motion.p

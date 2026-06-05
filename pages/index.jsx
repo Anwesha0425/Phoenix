@@ -3,7 +3,6 @@ import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import Carousel from '../Components/Carousel/carousel'
 import Homeredirect from '../Components/HomeRedirect/homeredirect'
 import Faq from '../Components/FAQ/FAQ'
 
@@ -11,61 +10,55 @@ const Index = ({ theme }) => {
   return (
     <>
       <Head>
-        <title>Home | CP Unofficial</title>
+        <title>Home | Phoenix</title>
         <meta
           name="description"
-          content="CP Unofficial — An open community for competitive programming enthusiasts from NIT Rourkela. Contests, resources, chatroom and more."
+          content="Phoenix — An open community for competitive programming enthusiasts from NIT Rourkela. Contests, resources, chatroom and more."
         />
       </Head>
 
-      <div className="flex items-center flex-col">
-        {/* Hero Carousel */}
-        <div className="w-full">
-          <Carousel theme={theme} />
-        </div>
-
-        {/* About Us section */}
-        <section className="w-full max-w-4xl px-6 py-14 sm:py-8">
+      <div className="flex items-center flex-col w-full overflow-hidden">
+        
+        {/* New Hero Section */}
+        <section className="w-full max-w-5xl px-6 py-20 sm:py-12 mt-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="rounded-2xl p-10 sm:p-5 text-center"
-            style={{
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(162,61,237,0.2)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
-            }}
+            className="text-center"
           >
-            <h1 className="text-5xl sm:text-3xl font-bold gradient-text mb-5">
-              About Us
+            <h1 className="text-6xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#a23ded] to-[#00ffcc] mb-2 drop-shadow-[0_0_15px_rgba(162,61,237,0.4)]">
+              Welcome to Phoenix
             </h1>
-            <div className="section-divider w-24 mx-auto mb-6" />
-            <p className="text-white/70 text-lg sm:text-sm leading-relaxed max-w-2xl mx-auto mb-6">
-              Welcome to <strong className="text-main">CP Unofficial</strong>, an open community dedicated to
-              competitive programming enthusiasts! We are a group of students from NIT Rourkela who are
-              passionate about programming and have come together to create a space for like-minded
-              individuals to connect, grow, and collaborate.
+            <h2 className="text-2xl sm:text-xl font-medium text-white/90 italic mb-6">
+              "Rise from the ashes"
+            </h2>
+            <p className="text-white/80 text-xl sm:text-base leading-relaxed max-w-3xl mx-auto mb-10">
+              A centralized learning platform for students interested in competitive programming and software engineering.
             </p>
-            <p className="text-white/60 text-base sm:text-sm leading-relaxed max-w-2xl mx-auto mb-8">
-              Whether you are a complete beginner or a seasoned pro — everyone is welcome on this journey.
-              We believe programming is not just a hobby, but a way of life.
-            </p>
-            <Link
-              href="/about"
-              className="inline-block px-8 py-3 rounded-full font-semibold text-dark__blue transition-all duration-300 hover:scale-105"
-              style={{
-                background: 'linear-gradient(135deg, #a23ded, #00ffcc)',
-                boxShadow: '0 4px 20px rgba(162,61,237,0.35)',
-              }}
-            >
-              Read More →
-            </Link>
+            <div className="flex justify-center gap-6 sm:gap-4 flex-wrap">
+              <Link
+                href="/cs-fundamentals"
+                className="inline-block px-8 py-3 rounded-full font-semibold text-dark__blue transition-all duration-300 hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, #a23ded, #00ffcc)',
+                  boxShadow: '0 4px 20px rgba(162,61,237,0.35)',
+                }}
+              >
+                Start Learning
+              </Link>
+              <Link
+                href="/questions"
+                className="inline-block px-8 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 border border-[#00ffcc] bg-[#00ffcc]/10 hover:bg-[#00ffcc]/20"
+              >
+                Practice Problems
+              </Link>
+            </div>
           </motion.div>
         </section>
+
+
 
         {/* Explore grid */}
         <div className="w-full">

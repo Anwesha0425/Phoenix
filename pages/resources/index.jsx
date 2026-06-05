@@ -22,7 +22,7 @@ const Index = () => {
   return (
     <>
       <Head>
-        <title>Resources | CP Unofficial</title>
+        <title>Resources | Phoenix</title>
       </Head>
       <div className='backdrop-blur-sm'>
         <div className='w-full flex items-center border-b-2'>

@@ -22,7 +22,7 @@ const More = () => {
     return (
         <>
             <Head>
-                <title>More | CP Unofficial</title>
+                <title>More | Phoenix</title>
             </Head>
             <div className=''>
                 <div className='w-full flex items-center border-b-2'>

@@ -10,10 +10,11 @@ import React,{useState, useEffect} from 'react'
 import { BsBoxArrowUpRight } from "react-icons/bs";
 
 const Index = ({name}) => {
-    name=name.trim();
+    const safeName = name ? name.trim() : "";
     const [data,setdata]= useState([]);
     function fetchData(){
-        fetch(`https://leetcode-stats-api.herokuapp.com/${name}`)
+        if (!safeName) return;
+        fetch(`https://leetcode-stats-api.herokuapp.com/${safeName}`)
             .then(response => {
                 if(response.status >= 400) {
                 console.log("Server responds with error!");
@@ -22,7 +23,7 @@ const Index = ({name}) => {
             })
             .then((data) => {
             if(data.status!= "success"){
-                alert("Fetching failed");
+                console.log(`Failed fetching leetcode stats for ${safeName}`);
             }
             else{
                 setdata(data);
@@ -41,6 +42,11 @@ const Index = ({name}) => {
         setCounter(15);
       }
     },[counter]);
+
+  if (!safeName) {
+    return <div className="text-center p-4 text-white/50 border-2 border-white/10 rounded-lg">No Leetcode ID provided.</div>;
+  }
+
   return (
     <div className="text-xl font-bold p-4 border-4 rounded-md m-4">
        Total Questions Solved: <span className='border-2 p-1 rounded-md m-1.5 mt-1'>{data.totalSolved}</span> out of <span className='border-2 p-1 rounded-md m-1.5 mt-1'>{data.totalQuestions}</span><br/><br/>

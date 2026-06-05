@@ -43,19 +43,15 @@ const Navbar = ({ theme, choosetheme }) => {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1 shrink-0">
           <Image
-            src="https://res.cloudinary.com/dk8ign4oc/image/upload/v1678292149/logo_sgor2b.png"
+            src="/logo.png"
             alt="Phoenix Logo"
             height={56}
             width={56}
             className="object-contain"
           />
-          <Image
-            src="https://res.cloudinary.com/dk8ign4oc/image/upload/v1678292149/pic5_zoom_on6noq.png"
-            alt="CP Unofficial"
-            height={40}
-            width={130}
-            className="object-contain sm:hidden"
-          />
+          <span className="text-2xl font-black italic tracking-wider sm:hidden drop-shadow-[0_0_10px_rgba(162,61,237,0.4)]" style={{ background: 'linear-gradient(135deg, #a23ded, #00ffcc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            Phoenix
+          </span>
         </Link>
 
         {/* Hamburger (mobile only) */}

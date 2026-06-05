@@ -1,23 +1,17 @@
 /* Footer — fixed broken mobile layout, added gradient border, hover glow on social icons */
 import React from 'react'
 import { SiYoutube } from 'react-icons/si'
-import { BsInstagram, BsGithub } from 'react-icons/bs'
+import { BsGithub } from 'react-icons/bs'
 import { GrMail } from 'react-icons/gr'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 const socialLinks = [
   {
-    href: 'mailto:cpunofficial101@gmail.com',
+    href: 'mailto:anwesharanigouda@gmail.com',
     icon: GrMail,
     title: 'Email us',
     color: '#a23ded',
-  },
-  {
-    href: 'https://www.instagram.com/cp_unofficial.101/',
-    icon: BsInstagram,
-    title: 'Instagram',
-    color: '#e1306c',
   },
   {
     href: 'https://www.youtube.com/@cpunofficial1196/videos',
@@ -105,7 +99,7 @@ const Footer = () => {
           >
             Anwesha
           </a>{' '}
-          · CP Unofficial · All rights reserved · India
+          · Phoenix · All rights reserved · India
         </p>
       </div>
     </footer>
