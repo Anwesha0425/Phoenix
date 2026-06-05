@@ -106,16 +106,42 @@ const Searchcontent = ({checked1,checked2,checked3,checked4,checked5,checked6}) 
    * filtered data to be displayed.
    */
   function fetchData(){
-    fetch(`https://kontests.net/api/v1/all`)
+    fetch(`https://contest-hive.vercel.app/api/all`)
       .then(response => {
          if(response.status >= 400) {
             console.log("Server responds with error!");
         }
         return response.json()
       })
-      .then((data) => {
-          setevents(data);
+      .then((res) => {
+          if (res && res.data) {
+             const mappedEvents = [];
+             const platforms = {
+                 codeforces: "CodeForces",
+                 codechef: "CodeChef",
+                 atcoder: "AtCoder",
+                 leetcode: "LeetCode",
+                 hackerrank: "HackerRank",
+                 hackerearth: "HackerEarth"
+             };
+             Object.keys(platforms).forEach(key => {
+                 if (res.data[key]) {
+                     res.data[key].forEach(c => {
+                         mappedEvents.push({
+                             name: c.title,
+                             url: c.url,
+                             start_time: c.startTime,
+                             end_time: c.endTime,
+                             duration: c.duration,
+                             site: platforms[key]
+                         });
+                     });
+                 }
+             });
+             setevents(mappedEvents);
+          }
       })
+      .catch(err => console.log(err));
     }
     const [counter, setCounter] = useState(0);
     useEffect(() => {
