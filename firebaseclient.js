@@ -3,14 +3,15 @@ import { getDatabase } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
-  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  apiKey: "AIzaSyARCIcI6733F_LnbwxMCsu8cX_jSjg9-c4",
+  authDomain: "algonexus-8cb8b.firebaseapp.com",
+  databaseURL: "https://algonexus-8cb8b-default-rtdb.firebaseio.com",
+  projectId: "algonexus-8cb8b",
+  storageBucket: "algonexus-8cb8b.firebasestorage.app",
+  messagingSenderId: "573835131443",
+  appId: "1:573835131443:web:57d186e158d9a99363c146",
 };
+
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getDatabase(app);

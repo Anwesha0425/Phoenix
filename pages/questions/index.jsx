@@ -33,8 +33,6 @@ const Questions = ({ hideHead = false }) => {
           .then(res => res.json())
           .then(data => {
             if (data && data.problemsetQuestionList) {
-              // The API usually returns older ones first. We'll reverse it to show newest of the batch if we want, or just display as is.
-              // To get actually newest we would need skip=3100, but limit=100 gives a good mix. 
               setLcProblems(data.problemsetQuestionList.reverse());
             }
             setLoading(false);
@@ -65,21 +63,19 @@ const Questions = ({ hideHead = false }) => {
         <div className="flex gap-4 mb-8 bg-black/20 p-1 rounded-full border border-[rgba(162,61,237,0.2)] sm:flex-col sm:rounded-2xl">
           <button
             onClick={() => setActiveTab('latest')}
-            className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 sm:rounded-xl ${
-              activeTab === 'latest'
+            className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 sm:rounded-xl ${activeTab === 'latest'
                 ? 'bg-main text-[#090a0f] shadow-[0_0_15px_rgba(162,61,237,0.5)]'
                 : 'text-white/60 hover:text-white'
-            }`}
+              }`}
           >
             Latest Contest Problems
           </button>
           <button
             onClick={() => setActiveTab('top100')}
-            className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 sm:rounded-xl ${
-              activeTab === 'top100'
+            className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 sm:rounded-xl ${activeTab === 'top100'
                 ? 'bg-[#00ffcc] text-[#090a0f] shadow-[0_0_15px_rgba(0,255,204,0.5)]'
                 : 'text-white/60 hover:text-white'
-            }`}
+              }`}
           >
             Top 100 Interview Questions
           </button>
@@ -89,26 +85,24 @@ const Questions = ({ hideHead = false }) => {
         <div className="w-full max-w-6xl">
           {activeTab === 'latest' ? (
             <div className="flex flex-col gap-4 w-full">
-              
+
               {/* Platform Switcher */}
               <div className="flex justify-center gap-4 mb-4">
                 <button
                   onClick={() => { setActivePlatform('codeforces'); setVisibleCount(20); }}
-                  className={`px-4 py-1 rounded-md font-bold text-sm transition-all duration-300 border ${
-                    activePlatform === 'codeforces'
+                  className={`px-4 py-1 rounded-md font-bold text-sm transition-all duration-300 border ${activePlatform === 'codeforces'
                       ? 'bg-main text-[#090a0f] border-main'
                       : 'text-main/60 border-main/30 hover:border-main/60 hover:text-main'
-                  }`}
+                    }`}
                 >
                   Codeforces
                 </button>
                 <button
                   onClick={() => { setActivePlatform('leetcode'); setVisibleCount(20); }}
-                  className={`px-4 py-1 rounded-md font-bold text-sm transition-all duration-300 border ${
-                    activePlatform === 'leetcode'
+                  className={`px-4 py-1 rounded-md font-bold text-sm transition-all duration-300 border ${activePlatform === 'leetcode'
                       ? 'bg-[#f89f1b] text-[#090a0f] border-[#f89f1b]'
                       : 'text-[#f89f1b]/60 border-[#f89f1b]/30 hover:border-[#f89f1b]/60 hover:text-[#f89f1b]'
-                  }`}
+                    }`}
                 >
                   LeetCode
                 </button>
@@ -168,11 +162,10 @@ const Questions = ({ hideHead = false }) => {
                                 {p.frontendQuestionId}
                               </span>
                               {p.difficulty && (
-                                <span className={`text-xs font-bold px-2 py-1 rounded-md ${
-                                  p.difficulty === 'Easy' ? 'bg-[#00ffcc]/10 text-[#00ffcc]' :
-                                  p.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-400' :
-                                  'bg-red-500/10 text-red-400'
-                                }`}>
+                                <span className={`text-xs font-bold px-2 py-1 rounded-md ${p.difficulty === 'Easy' ? 'bg-[#00ffcc]/10 text-[#00ffcc]' :
+                                    p.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-400' :
+                                      'bg-red-500/10 text-red-400'
+                                  }`}>
                                   {p.difficulty}
                                 </span>
                               )}
@@ -220,16 +213,14 @@ const Questions = ({ hideHead = false }) => {
                   >
                     <div>
                       <div className="flex justify-between items-start mb-2">
-                        <span className={`text-xs font-bold px-2 py-1 rounded-md ${
-                          q.platform === 'LeetCode' ? 'bg-[#f89f1b]/10 text-[#f89f1b]' : 'bg-[#3b5998]/10 text-white/80'
-                        }`}>
+                        <span className={`text-xs font-bold px-2 py-1 rounded-md ${q.platform === 'LeetCode' ? 'bg-[#f89f1b]/10 text-[#f89f1b]' : 'bg-[#3b5998]/10 text-white/80'
+                          }`}>
                           {q.platform}
                         </span>
-                        <span className={`text-xs font-bold px-2 py-1 rounded-md ${
-                          q.difficulty === 'Easy' ? 'bg-[#00ffcc]/10 text-[#00ffcc]' :
-                          q.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-400' :
-                          'bg-red-500/10 text-red-400'
-                        }`}>
+                        <span className={`text-xs font-bold px-2 py-1 rounded-md ${q.difficulty === 'Easy' ? 'bg-[#00ffcc]/10 text-[#00ffcc]' :
+                            q.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-400' :
+                              'bg-red-500/10 text-red-400'
+                          }`}>
                           {q.difficulty}
                         </span>
                       </div>
