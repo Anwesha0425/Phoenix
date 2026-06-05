@@ -34,7 +34,7 @@ const Index = ({ theme }) => {
             className="rounded-2xl p-10 sm:p-5 text-center"
             style={{
               background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(219,173,105,0.2)',
+              border: '1px solid rgba(162,61,237,0.2)',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
               boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
@@ -58,8 +58,8 @@ const Index = ({ theme }) => {
               href="/about"
               className="inline-block px-8 py-3 rounded-full font-semibold text-dark__blue transition-all duration-300 hover:scale-105"
               style={{
-                background: 'linear-gradient(135deg, #dbad69, #f5d49a)',
-                boxShadow: '0 4px 20px rgba(219,173,105,0.35)',
+                background: 'linear-gradient(135deg, #a23ded, #00ffcc)',
+                boxShadow: '0 4px 20px rgba(162,61,237,0.35)',
               }}
             >
               Read More →
@@ -83,8 +83,8 @@ const Index = ({ theme }) => {
           <div
             className="max-w-2xl mx-auto rounded-2xl py-12 px-8 sm:py-8 sm:px-4"
             style={{
-              background: 'linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(219,173,105,0.12) 50%, rgba(7,31,180,0.15) 100%)',
-              border: '1px solid rgba(219,173,105,0.25)',
+              background: 'linear-gradient(135deg, rgba(162,61,237,0.15) 0%, rgba(0,255,204,0.12) 50%, rgba(9,10,15,0.15) 100%)',
+              border: '1px solid rgba(162,61,237,0.25)',
               backdropFilter: 'blur(14px)',
               WebkitBackdropFilter: 'blur(14px)',
             }}
@@ -100,8 +100,8 @@ const Index = ({ theme }) => {
                 href="/signup"
                 className="px-8 py-3 rounded-full font-bold text-dark__blue transition-all duration-300 hover:scale-105"
                 style={{
-                  background: 'linear-gradient(135deg, #dbad69, #f5d49a)',
-                  boxShadow: '0 4px 24px rgba(219,173,105,0.4)',
+                  background: 'linear-gradient(135deg, #a23ded, #00ffcc)',
+                  boxShadow: '0 4px 24px rgba(162,61,237,0.4)',
                 }}
               >
                 Get Started

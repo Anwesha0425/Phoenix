@@ -13,9 +13,9 @@ const QnA = ({ question, answer, index }) => {
       style={{
         background: 'rgba(255,255,255,0.04)',
         border: isopen
-          ? '1px solid rgba(219, 173, 105, 0.7)'
-          : '1px solid rgba(219, 173, 105, 0.2)',
-        boxShadow: isopen ? '0 4px 24px rgba(219,173,105,0.15)' : 'none',
+          ? '1px solid rgba(162, 61, 237, 0.7)'
+          : '1px solid rgba(162, 61, 237, 0.2)',
+        boxShadow: isopen ? '0 4px 24px rgba(162,61,237,0.15)' : 'none',
         transition: 'border 0.3s ease, box-shadow 0.3s ease',
       }}
     >
@@ -31,14 +31,14 @@ const QnA = ({ question, answer, index }) => {
         <span
           className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300"
           style={{
-            background: isopen ? '#dbad69' : 'rgba(219,173,105,0.15)',
-            border: '1px solid rgba(219,173,105,0.4)',
+            background: isopen ? '#a23ded' : 'rgba(162,61,237,0.15)',
+            border: '1px solid rgba(162,61,237,0.4)',
           }}
         >
           {isopen ? (
-            <IoIosArrowUp size={14} color={isopen ? '#060031' : '#dbad69'} />
+            <IoIosArrowUp size={14} color={isopen ? '#090a0f' : '#a23ded'} />
           ) : (
-            <IoIosArrowDown size={14} color="#dbad69" />
+            <IoIosArrowDown size={14} color="#a23ded" />
           )}
         </span>
       </button>
@@ -57,7 +57,7 @@ const QnA = ({ question, answer, index }) => {
             <div
               className="px-4 pb-4 pt-1 text-sm sm:text-xs leading-relaxed"
               style={{
-                borderTop: '1px solid rgba(219,173,105,0.15)',
+                borderTop: '1px solid rgba(162,61,237,0.15)',
                 color: 'rgba(255,255,255,0.7)',
               }}
             >

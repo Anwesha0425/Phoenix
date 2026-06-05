@@ -106,13 +106,13 @@ export default function ImageCarousel({ theme }) {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="pointer-events-auto max-w-[340px] sm:max-w-[200px]"
           style={{
-            background: "rgba(6, 0, 49, 0.75)",
+            background: "rgba(9, 10, 15, 0.75)",
             backdropFilter: "blur(18px)",
             WebkitBackdropFilter: "blur(18px)",
-            border: "1px solid rgba(219, 173, 105, 0.4)",
+            border: "1px solid rgba(162, 61, 237, 0.4)",
             borderRadius: "16px",
             padding: "clamp(16px, 3vw, 40px)",
-            boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 30px rgba(219,173,105,0.1)",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 30px rgba(162,61,237,0.1)",
           }}
         >
           <motion.p
@@ -153,7 +153,7 @@ export default function ImageCarousel({ theme }) {
             <Link
               href="/signup"
               className="px-5 py-2 rounded-full bg-main text-dark__blue font-bold text-sm hover:scale-105 hover:shadow-lg transition-all duration-300 text-center"
-              style={{ boxShadow: "0 4px 20px rgba(219,173,105,0.4)" }}
+              style={{ boxShadow: "0 4px 20px rgba(162,61,237,0.4)" }}
             >
               Join Now
             </Link>

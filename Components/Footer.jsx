@@ -11,7 +11,7 @@ const socialLinks = [
     href: 'mailto:cpunofficial101@gmail.com',
     icon: GrMail,
     title: 'Email us',
-    color: '#dbad69',
+    color: '#a23ded',
   },
   {
     href: 'https://www.instagram.com/cp_unofficial.101/',
@@ -38,8 +38,8 @@ const Footer = () => {
     <footer
       className="relative w-full mt-8"
       style={{
-        borderTop: '1px solid rgba(219, 173, 105, 0.3)',
-        background: 'rgba(6, 0, 49, 0.6)',
+        borderTop: '1px solid rgba(162, 61, 237, 0.3)',
+        background: 'rgba(9, 10, 15, 0.6)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
       }}
@@ -59,8 +59,8 @@ const Footer = () => {
               title={title}
               className="flex items-center justify-center w-11 h-11 rounded-full transition-all duration-300"
               style={{
-                border: '1px solid rgba(219,173,105,0.25)',
-                color: 'rgba(219,173,105,0.8)',
+                border: '1px solid rgba(162,61,237,0.25)',
+                color: 'rgba(162,61,237,0.8)',
               }}
               whileHover={{
                 scale: 1.15,

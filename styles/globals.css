@@ -12,39 +12,39 @@
         align-items: start;
     }
     .box-shadow {
-        box-shadow: rgba(219, 173, 105, 0.8) 0px 0px 0px 2px,
-            rgba(219, 173, 105, 0.8) 0px 4px 6px -1px,
-            rgba(219, 173, 105, 0.8) 0px 1px 0px inset;
+        box-shadow: rgba(162, 61, 237, 0.8) 0px 0px 0px 2px,
+            rgba(162, 61, 237, 0.8) 0px 4px 6px -1px,
+            rgba(162, 61, 237, 0.8) 0px 1px 0px inset;
     }
     .text__black {
         color: black;
     }
     .glass {
-        background: rgba(11, 0, 93, 0.45);
+        background: rgba(13, 15, 28, 0.45);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
-        border: 1px solid rgba(219, 173, 105, 0.2);
+        border: 1px solid rgba(162, 61, 237, 0.2);
     }
     .glass-light {
-        background: rgba(0, 71, 159, 0.35);
+        background: rgba(18, 20, 36, 0.35);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
-        border: 1px solid rgba(219, 173, 105, 0.25);
+        border: 1px solid rgba(162, 61, 237, 0.25);
     }
-    .glow-gold {
-        box-shadow: 0 0 16px rgba(219, 173, 105, 0.5),
-            0 0 40px rgba(219, 173, 105, 0.15);
+    .glow-nebula {
+        box-shadow: 0 0 16px rgba(162, 61, 237, 0.5),
+            0 0 40px rgba(0, 255, 204, 0.15);
     }
     .gradient-text {
-        background: linear-gradient(135deg, #dbad69 0%, #f5d49a 50%, #dbad69 100%);
+        background: linear-gradient(135deg, #a23ded 0%, #00ffcc 50%, #a23ded 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
     .sidebar-active {
-        border-left: 3px solid #dbad69;
-        background: rgba(219, 173, 105, 0.15);
-        color: #dbad69;
+        border-left: 3px solid #a23ded;
+        background: rgba(162, 61, 237, 0.15);
+        color: #a23ded;
     }
     .nav-link-hover {
         position: relative;
@@ -56,7 +56,7 @@
         left: 0;
         width: 0;
         height: 2px;
-        background: #dbad69;
+        background: #00ffcc;
         transition: width 0.3s ease;
     }
     .nav-link-hover:hover::after {
@@ -67,24 +67,24 @@
     }
     .card-hover:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 40px rgba(219, 173, 105, 0.3);
+        box-shadow: 0 12px 40px rgba(0, 255, 204, 0.2);
     }
     .animated-border {
-        background: linear-gradient(#0b005d, #0b005d) padding-box,
-            linear-gradient(135deg, #dbad69, #f5d49a, #dbad69) border-box;
+        background: linear-gradient(#0d0f1c, #0d0f1c) padding-box,
+            linear-gradient(135deg, #a23ded, #00ffcc, #a23ded) border-box;
         border: 2px solid transparent;
     }
     .hero-gradient {
         background: linear-gradient(
             135deg,
-            rgba(6, 0, 49, 0.95) 0%,
-            rgba(11, 0, 93, 0.85) 50%,
-            rgba(7, 31, 180, 0.7) 100%
+            rgba(9, 10, 15, 0.95) 0%,
+            rgba(13, 15, 28, 0.85) 50%,
+            rgba(10, 15, 40, 0.7) 100%
         );
     }
     .section-divider {
         height: 2px;
-        background: linear-gradient(to right, transparent, #dbad69, transparent);
+        background: linear-gradient(to right, transparent, #a23ded, transparent);
     }
 }
 
@@ -101,7 +101,10 @@ body {
     padding: 0;
     font-family: 'Inter', 'Signika', sans-serif;
     scrollbar-width: thin;
-    scrollbar-color: #dbad69 rgba(11, 0, 93, 0.5);
+    scrollbar-color: #a23ded rgba(13, 15, 28, 0.5);
+    background: radial-gradient(ellipse at bottom, #13112a 0%, #090a0f 100%);
+    background-attachment: fixed;
+    color: #e2e8f0;
 }
 
 body::-webkit-scrollbar {
@@ -109,16 +112,16 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-    background: rgba(11, 0, 93, 0.5);
+    background: rgba(13, 15, 28, 0.5);
 }
 
 body::-webkit-scrollbar-thumb {
-    background: #dbad69;
+    background: #a23ded;
     border-radius: 3px;
 }
 
 body::-webkit-scrollbar-thumb:hover {
-    background: #f5d49a;
+    background: #00ffcc;
 }
 
 a,
@@ -135,7 +138,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::selection {
-    background: rgba(219, 173, 105, 0.4);
+    background: rgba(162, 61, 237, 0.4);
     color: #fff;
 }
 
@@ -157,8 +160,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 8px rgba(219, 173, 105, 0.4); }
-    50% { box-shadow: 0 0 20px rgba(219, 173, 105, 0.8); }
+    0%, 100% { box-shadow: 0 0 8px rgba(162, 61, 237, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(0, 255, 204, 0.6); }
 }
 
 .animate-fade-in-up {
