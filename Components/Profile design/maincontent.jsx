@@ -139,7 +139,7 @@ const Maincontent = ({user,theme}) => {
             {open3 && <Leetcode_data name={user.leetcodeId}/>}
         </div>
         <p className="text-2xl sm:text-lg xl:text-center lg:text-center xl:p-14 lg:p-14 sm:p-4 md:p-36 italic font-medium">
-            "Success is the sum of small efforts, repeated day in and day out. Keep coding, keep building, and never give up."
+            &quot;Success is the sum of small efforts, repeated day in and day out. Keep coding, keep building, and never give up.&quot;
         </p>
     </div>
   </>

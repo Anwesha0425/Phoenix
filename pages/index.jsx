@@ -32,7 +32,7 @@ const Index = ({ theme }) => {
               Welcome to Phoenix
             </h1>
             <h2 className="text-2xl sm:text-xl font-medium text-white/90 italic mb-6">
-              "Rise from the ashes"
+              &quot;Rise from the ashes&quot;
             </h2>
             <p className="text-white/80 text-xl sm:text-base leading-relaxed max-w-3xl mx-auto mb-10">
               A centralized learning platform for students interested in competitive programming and software engineering.
