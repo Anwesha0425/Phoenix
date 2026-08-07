@@ -1,6 +1,8 @@
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
-import { StateGraph, MessagesAnnotation } from "@langchain/langgraph";
+import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { SystemMessage, HumanMessage } from "@langchain/core/messages";
+import { tool } from "@langchain/core/tools";
+import { z } from "zod";
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -21,17 +23,47 @@ export default async function handler(req, res) {
       apiKey: finalApiKey,
     });
 
-    async function callModel(state) {
-      const { messages } = state;
-      const response = await llm.invoke(messages);
-      return { messages: [response] };
-    }
+    const executionLlm = new ChatGoogleGenerativeAI({
+      model: "gemini-3.5-flash",
+      apiKey: finalApiKey,
+      temperature: 0,
+    });
 
-    const workflow = new StateGraph(MessagesAnnotation)
-      .addNode("agent", callModel)
-      .addEdge("__start__", "agent");
+    const runCodeTool = tool(async ({ tool_language, tool_code, tool_stdin }) => {
+      const prompt = new HumanMessage(`
+You are a highly accurate, strict code execution engine.
+Your task is to mentally compile and run the following code written in ${tool_language}.
+If the code has compilation errors or runtime errors, you MUST output the exact error message that a standard compiler/interpreter would output (e.g. standard stderr).
+If the code runs successfully, you MUST output ONLY the exact standard output (stdout) that the program would produce.
+You MUST consider the provided Custom Input (stdin) while executing the code.
 
-    const app = workflow.compile();
+Rules:
+1. DO NOT include markdown formatting (like \`\`\`).
+2. DO NOT include explanations, greetings, or conversational text.
+3. OUTPUT ONLY the exact stdout or stderr.
+
+=== Custom Input (stdin) ===
+${tool_stdin || '(No input provided)'}
+============================
+
+=== Source Code ===
+${tool_code}
+===================
+      `);
+      const result = await executionLlm.invoke([prompt]);
+      return result.content;
+    }, {
+      name: "run_code",
+      description: "Compiles and executes the provided code. Returns the standard output or standard error. Use this to test code or debug.",
+      schema: z.object({
+        tool_language: z.string().describe("The programming language (e.g., python, javascript, cpp, java)"),
+        tool_code: z.string().describe("The source code to execute"),
+        tool_stdin: z.string().optional().describe("Standard input for the code execution")
+      })
+    });
+
+    const tools = [runCodeTool];
+    const app = createReactAgent({ llm, tools });
 
     const systemPrompt = new SystemMessage(
       `You are an expert programming assistant integrated into an online IDE. 
@@ -40,18 +72,15 @@ export default async function handler(req, res) {
       \`\`\`${language || 'text'}
       ${code || ''}
       \`\`\`
-      Answer their question concisely and accurately based on the code provided.`
+      Answer their question concisely and accurately based on the code provided. 
+      If you need to verify your solution, debug the user's code, or predict the output, you can use the 'run_code' tool to compile and execute the code.`
     );
     
-    // Format history if provided, otherwise just the new query
     let initialMessages = [systemPrompt];
     if (history && history.length > 0) {
         history.forEach(msg => {
             if (msg.role === 'user') {
                 initialMessages.push(new HumanMessage(msg.content));
-            } else if (msg.role === 'assistant') {
-                // @langchain/core/messages has AIMessage for assistant, but we'll stick to a simpler approach or import it.
-                // It's easier to just pass text if we don't import AIMessage, but let's just pass the query for now to keep it simple.
             }
         });
     }
