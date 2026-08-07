@@ -54,6 +54,12 @@ const Index = ({ theme }) => {
               >
                 Practice Problems
               </Link>
+              <Link
+                href="/ide"
+                className="inline-block px-8 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 border border-purple-500 bg-purple-500/10 hover:bg-purple-500/20"
+              >
+                Online IDE 🤖
+              </Link>
             </div>
           </motion.div>
         </section>

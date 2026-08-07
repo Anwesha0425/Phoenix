@@ -79,6 +79,14 @@ const Navbar = ({ theme, choosetheme }) => {
                 </div>
               </Offline>
 
+              <Link
+                href="/ide"
+                onClick={() => setOpen(false)}
+                className={btnBase + (theme ? btnDark : btnLight) + 'text-center block w-full'}
+              >
+                IDE
+              </Link>
+
               {user ? (
                 <div className="flex flex-col items-center gap-3 w-full">
                   {user.photoURL && (
@@ -135,6 +143,10 @@ const Navbar = ({ theme, choosetheme }) => {
               ⚠ Weak connection
             </div>
           </Offline>
+
+          <Link href="/ide" className={btnBase + (theme ? btnDark : btnLight)}>
+            IDE
+          </Link>
 
           {/* Theme toggle */}
           <button
