@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
-import { top100Questions } from '../../data/top100';
+import { FaRobot, FaSpinner } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
 
 const Questions = ({ hideHead = false }) => {
   const [activeTab, setActiveTab] = useState('latest');
@@ -10,6 +11,39 @@ const Questions = ({ hideHead = false }) => {
   const [lcProblems, setLcProblems] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
   const [loading, setLoading] = useState(false);
+
+  // AI Problem Generator State
+  const [aiTopic, setAiTopic] = useState('');
+  const [aiDifficulty, setAiDifficulty] = useState('Medium');
+  const [aiPlatform, setAiPlatform] = useState('LeetCode');
+  const [aiProvider, setAiProvider] = useState('gemini');
+  const [aiProblem, setAiProblem] = useState('');
+  const [aiLoading, setAiLoading] = useState(false);
+
+  const generateProblem = async () => {
+    if (!aiTopic) return;
+    setAiLoading(true);
+    setAiProblem('');
+    try {
+      const res = await fetch('/api/crew', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          endpoint: '/api/problem',
+          payload: { topic: aiTopic, difficulty: aiDifficulty, platform_style: aiPlatform, llm_provider: aiProvider }
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setAiProblem(data.problem);
+      } else {
+        setAiProblem('Error generating problem.');
+      }
+    } catch (err) {
+      setAiProblem('Error generating problem.');
+    }
+    setAiLoading(false);
+  };
 
   useEffect(() => {
     if (activeTab === 'latest') {
@@ -71,13 +105,13 @@ const Questions = ({ hideHead = false }) => {
             Latest Contest Problems
           </button>
           <button
-            onClick={() => setActiveTab('top100')}
-            className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 sm:rounded-xl ${activeTab === 'top100'
+            onClick={() => setActiveTab('aigenerated')}
+            className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 sm:rounded-xl flex items-center justify-center gap-2 ${activeTab === 'aigenerated'
                 ? 'bg-[#00ffcc] text-[#090a0f] shadow-[0_0_15px_rgba(0,255,204,0.5)]'
                 : 'text-white/60 hover:text-white'
               }`}
           >
-            Top 100 Interview Questions
+            <FaRobot /> AI Custom Problems
           </button>
         </div>
 
@@ -204,39 +238,76 @@ const Questions = ({ hideHead = false }) => {
               )}
             </div>
           ) : (
-            <div className="flex flex-col gap-4 w-full">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {top100Questions.map((q) => (
-                  <div
-                    key={q.id}
-                    className="p-5 rounded-xl border border-[rgba(0,255,204,0.2)] bg-[rgba(13,15,28,0.6)] backdrop-blur-md hover:-translate-y-1 transition-transform duration-300 hover:shadow-[0_4px_20px_rgba(0,255,204,0.15)] flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex justify-between items-start mb-2">
-                        <span className={`text-xs font-bold px-2 py-1 rounded-md ${q.platform === 'LeetCode' ? 'bg-[#f89f1b]/10 text-[#f89f1b]' : 'bg-[#3b5998]/10 text-white/80'
-                          }`}>
-                          {q.platform}
-                        </span>
-                        <span className={`text-xs font-bold px-2 py-1 rounded-md ${q.difficulty === 'Easy' ? 'bg-[#00ffcc]/10 text-[#00ffcc]' :
-                            q.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-400' :
-                              'bg-red-500/10 text-red-400'
-                          }`}>
-                          {q.difficulty}
-                        </span>
-                      </div>
-                      <h3 className="text-lg font-bold text-white mb-4 line-clamp-2">{q.id}. {q.title}</h3>
-                    </div>
-                    <a
-                      href={q.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-2 rounded-lg border border-[#00ffcc] text-[#00ffcc] hover:bg-[#00ffcc] hover:text-[#090a0f] font-semibold transition-colors"
+            <div className="flex flex-col gap-6 w-full max-w-3xl mx-auto">
+              <div className="bg-[#0d0f1c] border border-[rgba(0,255,204,0.3)] rounded-2xl p-6 shadow-2xl flex flex-col gap-4">
+                <h2 className="text-2xl font-bold text-[#00ffcc] flex items-center gap-2">
+                  <FaRobot /> Generate a Coding Problem
+                </h2>
+                <p className="text-white/60 text-sm">
+                  Want to practice something specific? Our AI will generate a brand new problem tailored to your needs.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                  <input 
+                    type="text"
+                    placeholder="Topic (e.g., Dynamic Programming, Graphs)"
+                    value={aiTopic}
+                    onChange={(e) => setAiTopic(e.target.value)}
+                    className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-[#00ffcc] transition-colors"
+                  />
+                  
+                  <div className="flex gap-2">
+                    <select 
+                      value={aiDifficulty}
+                      onChange={(e) => setAiDifficulty(e.target.value)}
+                      className="w-1/3 bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-[#00ffcc] transition-colors"
                     >
-                      Interview Prep <BsBoxArrowUpRight />
-                    </a>
+                      <option>Easy</option>
+                      <option>Medium</option>
+                      <option>Hard</option>
+                    </select>
+                    
+                    <select 
+                      value={aiPlatform}
+                      onChange={(e) => setAiPlatform(e.target.value)}
+                      className="w-1/3 bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-[#00ffcc] transition-colors"
+                    >
+                      <option>LeetCode</option>
+                      <option>Codeforces</option>
+                      <option>CSES</option>
+                      <option>CodeChef</option>
+                      <option>GeeksforGeeks</option>
+                    </select>
+
+                    <select 
+                      value={aiProvider}
+                      onChange={(e) => setAiProvider(e.target.value)}
+                      className="w-1/3 bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-[#00ffcc] transition-colors"
+                      title="Select AI Model"
+                    >
+                      <option value="gemini">Gemini</option>
+                      <option value="groq">Groq (Llama 3)</option>
+                      <option value="cohere">Cohere</option>
+                    </select>
                   </div>
-                ))}
+                </div>
+
+                <button 
+                  onClick={generateProblem}
+                  disabled={aiLoading || !aiTopic}
+                  className="w-full py-3 mt-2 rounded-lg bg-[#00ffcc] text-[#090a0f] font-bold disabled:opacity-50 hover:bg-[#00ffcc]/80 transition-colors flex justify-center items-center gap-2"
+                >
+                  {aiLoading ? <><FaSpinner className="animate-spin" /> Generating...</> : 'Generate Problem'}
+                </button>
               </div>
+
+              {aiProblem && (
+                <div className="bg-black/40 border border-white/10 rounded-2xl p-6 custom-scrollbar text-white/90 leading-relaxed shadow-lg prose prose-invert prose-sm max-w-none">
+                  <ReactMarkdown>
+                    {aiProblem}
+                  </ReactMarkdown>
+                </div>
+              )}
             </div>
           )}
         </div>

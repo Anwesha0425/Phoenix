@@ -32,6 +32,7 @@ export default function IDE() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [showAI, setShowAI] = useState(false);
   const [customApiKey, setCustomApiKey] = useState('');
+  const [llmProvider, setLlmProvider] = useState('gemini');
 
   const handleLanguageChange = (e) => {
     const lang = e.target.value;
@@ -127,11 +128,20 @@ export default function IDE() {
             <div className="flex items-center gap-2 ml-4 border-l border-gray-600 pl-4">
               <input 
                 type="password" 
-                placeholder="Custom Gemini API Key (Optional)" 
+                placeholder="Custom API Key (Optional)" 
                 value={customApiKey}
                 onChange={(e) => setCustomApiKey(e.target.value)}
-                className="bg-gray-800 border border-gray-600 text-white px-3 py-2 rounded focus:outline-none focus:border-blue-500 text-sm w-64 placeholder-gray-500"
+                className="bg-gray-800 border border-gray-600 text-white px-3 py-2 rounded focus:outline-none focus:border-blue-500 text-sm w-48 placeholder-gray-500"
               />
+              <select
+                value={llmProvider}
+                onChange={(e) => setLlmProvider(e.target.value)}
+                className="bg-gray-800 border border-gray-600 text-white px-3 py-2 rounded focus:outline-none focus:border-blue-500 text-sm"
+              >
+                <option value="gemini">Gemini</option>
+                <option value="groq">Groq (Llama 3)</option>
+                <option value="cohere">Cohere</option>
+              </select>
             </div>
           </div>
         </div>
@@ -179,7 +189,7 @@ export default function IDE() {
           {/* AI Assistant Sidebar */}
           {showAI && (
             <div className="w-1/3 transition-all duration-300">
-              <AIAssistant code={code} language={language} apiKey={customApiKey} onClose={() => setShowAI(false)} />
+              <AIAssistant code={code} language={language} apiKey={customApiKey} llmProvider={llmProvider} onClose={() => setShowAI(false)} />
             </div>
           )}
         </div>

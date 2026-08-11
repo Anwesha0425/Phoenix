@@ -36,3 +36,13 @@ Thumbs.db
 # IDE
 .vscode/settings.json
 .idea/
+
+# Python (crew-backend)
+crew-backend/venv/
+crew-backend/__pycache__/
+crew-backend/crews/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+crew-backend/.env

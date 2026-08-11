@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AIAssistant = ({ code, language, apiKey, onClose }) => {
+const AIAssistant = ({ code, language, apiKey, llmProvider, onClose }) => {
   const [query, setQuery] = useState('');
   const [chat, setChat] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,8 @@ const AIAssistant = ({ code, language, apiKey, onClose }) => {
         code,
         language,
         query: userMessage.content,
-        apiKey
+        apiKey,
+        llmProvider
         // Optional: send history if you want context to persist
       });
 

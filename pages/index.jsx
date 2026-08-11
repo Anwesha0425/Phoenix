@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import Homeredirect from '../Components/HomeRedirect/homeredirect'
 import Faq from '../Components/FAQ/FAQ'
+import AIAgents from '../Components/AIAgents/AIAgents'
 
 const Index = ({ theme }) => {
   return (
@@ -65,6 +66,11 @@ const Index = ({ theme }) => {
         </section>
 
 
+
+        {/* AI Agents grid */}
+        <div className="w-full">
+          <AIAgents theme={theme} />
+        </div>
 
         {/* Explore grid */}
         <div className="w-full">
